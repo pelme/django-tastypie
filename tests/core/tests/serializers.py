@@ -186,12 +186,12 @@ class SerializerTestCase(TestCase):
         # so we can make extra special sure it looks right.
         binary_xml = serializer.to_xml(sample_1)
         unicode_xml = binary_xml.decode('utf-8')
-        self.assertEqual(unicode_xml, u'<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response><snowman>☃</snowman><age type="integer">27</age><name>Daniel</name><date_joined>2010-03-27</date_joined></response>')
+        self.assertEqual(unicode_xml, u'<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response type="hash"><snowman>☃</snowman><age type="integer">27</age><name>Daniel</name><date_joined>2010-03-27</date_joined></response>')
 
     def test_to_xml2(self):
         serializer = Serializer()
         sample_2 = self.get_sample2()
-        self.assertEqual(serializer.to_xml(sample_2), '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response><somelist type="list"><value>hello</value><value type="integer">1</value><value type="null"/></somelist><somehash type="hash"><pi type="float">3.14</pi><foo>bar</foo></somehash><false type="boolean">False</false><true type="boolean">True</true><somestring>hello</somestring></response>')
+        self.assertEqual(serializer.to_xml(sample_2), '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response type="hash"><somelist type="list"><value>hello</value><value type="integer">1</value><value type="null"/></somelist><somehash type="hash"><pi type="float">3.14</pi><foo>bar</foo></somehash><false type="boolean">False</false><true type="boolean">True</true><somestring>hello</somestring></response>')
 
     def test_from_xml(self):
         serializer = Serializer()
@@ -307,7 +307,7 @@ class ResourceSerializationTestCase(TestCase):
                 'object': resource,
             }
         }
-        self.assertEqual(serializer.to_xml(data), '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response><stuff type="hash"><foo>bar</foo><object><updated>2010-03-30T20:05:00</updated><created>2010-03-30T20:05:00</created><title>First Post!</title><is_active type="boolean">True</is_active><slug>first-post</slug><content>This is my very first post using my shiny new API. Pretty sweet, huh?</content><id type="integer">1</id><resource_uri></resource_uri></object></stuff></response>')
+        self.assertEqual(serializer.to_xml(data), '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response type="hash"><stuff type="hash"><foo>bar</foo><object><updated>2010-03-30T20:05:00</updated><created>2010-03-30T20:05:00</created><title>First Post!</title><is_active type="boolean">True</is_active><slug>first-post</slug><content>This is my very first post using my shiny new API. Pretty sweet, huh?</content><id type="integer">1</id><resource_uri></resource_uri></object></stuff></response>')
 
     def test_to_json_multirepr(self):
         serializer = Serializer()

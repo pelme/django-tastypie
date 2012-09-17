@@ -255,7 +255,7 @@ class Serializer(object):
                 element = Element(name or 'response')
             else:
                 element = Element(name or 'object')
-                element.set('type', 'hash')
+            element.set('type', 'hash')
             for (key, value) in data.iteritems():
                 element.append(self.to_etree(value, options, name=key, depth=depth+1))
         elif isinstance(data, Bundle):

@@ -29,7 +29,7 @@ class HTTPTestCase(TestServerTestCase):
         connection.close()
         data = response.read()
         self.assertEqual(response.status, 200)
-        self.assertEqual(data, '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response><products type="hash"><list_endpoint>/api/v1/products/</list_endpoint><schema>/api/v1/products/schema/</schema></products></response>')
+        self.assertEqual(data, '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<response type="hash"><products type="hash"><list_endpoint>/api/v1/products/</list_endpoint><schema>/api/v1/products/schema/</schema></products></response>')
 
     def test_get_list(self):
         connection = self.get_connection()
@@ -99,16 +99,16 @@ class HTTPTestCase(TestServerTestCase):
         response = connection.getresponse()
         self.assertEqual(response.status, 201)
         self.assertEqual(dict(response.getheaders())['location'], 'http://localhost:8001/api/v1/products/A76124/03/')
-    
+
         # make sure posted object exists
         connection.request('GET', '/api/v1/products/A76124/03/', headers={'Accept': 'application/json'})
         response = connection.getresponse()
         connection.close()
-    
+
         self.assertEqual(response.status, 200)
-    
+
         data = response.read()
         obj = json.loads(data)
-    
+
         self.assertEqual(obj['name'], 'Bigwheel XXL')
         self.assertEqual(obj['artnr'], 'A76124/03')
