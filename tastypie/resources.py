@@ -255,7 +255,7 @@ class Resource(object):
         response_class = http.HttpApplicationError
         response_code = 500
 
-        NOT_FOUND_EXCEPTIONS = (NotFound, ObjectDoesNotExist, Http404)
+        NOT_FOUND_EXCEPTIONS = (NotFound, Http404)
 
         if isinstance(exception, NOT_FOUND_EXCEPTIONS):
             response_class = HttpResponseNotFound
